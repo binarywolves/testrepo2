@@ -104,3 +104,61 @@ Function BrowseForFolder(Optional prompt As String) As String
     
 End Function
 
+
+
+Sub CountXlsxFiles()
+
+    ' Ask the user to select a folder.
+    Dim folderPath As String
+    folderPath = BrowseForFolder("Select a folder")
+    
+    ' If the user did not select a folder, then exit the macro.
+    If folderPath = "" Then Exit Sub
+    
+    ' Count the number of .xlsx files in the selected folder.
+    Dim count As Long
+    count = CountFilesInFolder(folderPath, "*.xlsx")
+    
+    ' Show the result in a message box.
+    MsgBox "There are " & count & " .xlsx files in the selected folder."
+    
+End Sub
+
+Function BrowseForFolder(Optional prompt As String) As String
+    ' Opens a dialog box that allows the user to select a folder.
+    ' Returns the path of the selected folder.
+    
+    Dim shell As Object
+    Set shell = CreateObject("Shell.Application")
+    
+    Dim folder As Object
+    Set folder = shell.BrowseForFolder(0, prompt, 0, 0)
+    
+    If Not folder Is Nothing Then
+        BrowseForFolder = folder.Items.Item.Path
+    End If
+    
+    Set folder = Nothing
+    Set shell = Nothing
+    
+End Function
+
+Function CountFilesInFolder(folderPath As String, fileExtension As String) As Long
+    ' Counts the number of files with the specified file extension in the specified folder.
+    
+    Dim count As Long
+    Dim file As String
+    
+    ' Loop through all files in the folder.
+    file = Dir(folderPath & "\" & fileExtension)
+    Do While file <> ""
+        ' Increment the count if the file has the specified extension.
+        count = count + 1
+        ' Get the next file in the folder.
+        file = Dir()
+    Loop
+    
+    CountFilesInFolder = count
+    
+End Function
+
