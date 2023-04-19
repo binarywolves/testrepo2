@@ -31,7 +31,7 @@ Sub Process()
     Dim input_file As String
     input_file = Dir(input_directory & "*.xlsx")
     If input_file = "" Then
-        MsgBox "There are no files in the input directory"
+        MsgBox "There are no .xlsx files in the input directory."
         Exit Sub
     End If
     
@@ -55,8 +55,6 @@ Sub Process()
             .AddDataField .PivotFields("Answer"), "Count of Answer", xlCount
         End With
 
-
-
         
         ' Add the User field to the row area and the Answer field to the data area.
         temp_pivot.PivotFields("User").Orientation = xlRowField
@@ -77,6 +75,7 @@ Sub Process()
     MsgBox "Macro has finished."
     
 End Sub
+
 
 Function BrowseForFolder(Optional prompt As String) As String
     ' Opens a dialog box that allows the user to select a folder.
