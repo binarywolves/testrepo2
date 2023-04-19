@@ -30,10 +30,18 @@ Sub Process()
     ' Check if there is at least one .xlsx file in the input directory.
     Dim input_file As String
     input_file = Dir(input_directory & "*.xlsx")
-    If input_file = "" Then
+    Dim input_file_found As Boolean
+    input_file_found = False
+    Do While input_file <> ""
+        input_file_found = True
+        input_file = Dir()
+    Loop
+
+    If Not input_file_found Then
         MsgBox "There are no .xlsx files in the input directory."
         Exit Sub
     End If
+
     
     ' Apply transformations to all .xlsx files.
     Do While input_file <> ""
