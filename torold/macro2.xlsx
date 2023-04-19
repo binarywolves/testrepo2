@@ -1,0 +1,115 @@
+Option Explicit
+
+Sub Process()
+
+    ' First, let's check if the user really wants to run the macro.
+    If MsgBox("Do you want to run the macro?", vbYesNo) = vbNo Then Exit Sub
+    
+    ' If the user wants to add a timestamp to the filename, then add it.
+    Dim timestamp As String
+    If MsgBox("Do you want to add a timestamp?", vbYesNo) = vbYes Then
+        timestamp = Format(Now(), "yyyymmddhhmmss")
+    Else
+        timestamp = ""
+    End If
+    
+    ' Ask the user to provide the input directory.
+    Dim input_directory As String
+    input_directory = BrowseForFolder("Add input directory")
+    
+    ' If the user did not provide an input directory, then exit the macro.
+    If input_directory = "" Then Exit Sub
+    
+    ' Ask the user to provide the output directory.
+    Dim output_directory As String
+    output_directory = BrowseForFolder("Add output directory")
+    
+    ' If the user did not provide an output directory, then exit the macro.
+    If output_directory = "" Then Exit Sub
+    
+    ' Count the number of .xlsx files in the input directory.
+    Dim count As Long
+    count = CountFilesInFolder(input_directory, "*.xlsx")
+    
+    ' If there are no .xlsx files in the input directory, then exit the macro.
+    If count = 0 Then
+        MsgBox "There are no .xlsx files in the input directory."
+        Exit Sub
+    End If
+
+    
+    ' Apply transformations to all .xlsx files.
+    Dim input_file As String
+    input_file = Dir(input_directory & "*.xlsx")
+    Do While input_file <> ""
+    
+        ' Open the input file.
+        Dim temp_workbook As Workbook
+        Set temp_workbook = Workbooks.Open(input_directory & input_file)
+        
+        
+        ' A temp pivot táblázat létrehozása.
+        Dim temp_sheet As Worksheet
+        Set temp_sheet = temp_workbook.Sheets.Add
+
+        Dim temp_pivot As PivotTable
+        Set temp_pivot = temp_sheet.PivotTables.Add(TableDestination:=temp_sheet.Range("A3"), TableName:="TempPivot")
+
+        With temp_pivot
+            .PivotFields("User").Orientation = xlRowField
+            .AddDataField .PivotFields("Answer"), "Count of Answer", xlCount
+        End With
+
+        
+        ' Add the User field to the row area and the Answer field to the data area.
+        temp_pivot.PivotFields("User").Orientation = xlRowField
+        temp_pivot.AddDataField temp_pivot.PivotFields("Answer"), "Count of Answer", xlCount
+        
+        ' Save the temp workbook with the new filename in the output directory.
+        temp_workbook.SaveAs Filename:=output_directory & Left(input_file, Len(input_file) - 5) & timestamp & ".xlsx", FileFormat:=xlOpenXMLWorkbook, CreateBackup:=False
+        
+        ' Close the temp workbook.
+        temp_workbook.Close
+        
+        ' Get the next .xlsx file in the input directory.
+        input_file = Dir()
+        
+    Loop
+    
+    ' Let the user know that the macro has finished.
+    MsgBox "Macro has finished."
+    
+End Sub
+
+
+Function BrowseForFolder(Optional prompt As String) As String
+    ' Opens a dialog box that allows the user to select a folder.
+    ' Returns the path of the selected folder.
+    
+    Dim shell As Object
+    Set shell = CreateObject("Shell.Application")
+    
+    Dim folder As Object
+    Set folder = shell.BrowseForFolder(0, prompt, 0, 0)
+    
+    If Not folder Is Nothing Then
+        BrowseForFolder = folder.Items.Item.Path
+    End If
+    
+    Set folder = Nothing
+    Set shell = Nothing
+    
+End Function
+
+Function CountFilesInFolder(folderPath As String, fileExtension As String) As Long
+    Dim filesInFolder As Variant
+    Dim fileCount As Long
+    Dim i As Long
+    
+    filesInFolder = Filter(Split(CreateObject("WScript.Shell").Exec("CMD /C DIR """ & folderPath & "\" & fileExtension & """ /A:-D /S /B").StdOut.ReadAll, vbCrLf), "\")
+    
+    fileCount = UBound(filesInFolder) - LBound(filesInFolder) + 1
+    
+    CountFilesInFolder = fileCount
+End Function
+
