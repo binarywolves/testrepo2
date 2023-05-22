@@ -1,32 +1,30 @@
-document.addEventListener("DOMContentLoaded", function() {
-  // Első oldal
-  let radBtnDefault100 = document.getElementById('q0,8');
-  let radBtnDefault101 = document.getElementById('q1,9');
-  let radBtnDefault102 = document.getElementById('q2,9');
-  let radBtnDefault103 = document.getElementById('q3,9');
-  let radBtnDefault104 = document.getElementById('q4,9');
-  let radBtnDefault105 = document.getElementById('q5,9');
-  let radBtnDefault106 = document.getElementById('q6,9');
+// Első oldal
+let radBtnDefault100 = document.getElementById('q0,8');
+let radBtnDefault101 = document.getElementById('q1,9');
+let radBtnDefault102 = document.getElementById('q2,9');
+let radBtnDefault103 = document.getElementById('q3,9');
+let radBtnDefault104 = document.getElementById('q4,9');
+let radBtnDefault105 = document.getElementById('q5,9');
+let radBtnDefault106 = document.getElementById('q6,9');
 
-  radBtnDefault100.checked = true;
-  radBtnDefault101.checked = true;
-  radBtnDefault102.checked = true;
-  radBtnDefault103.checked = true;
-  radBtnDefault104.checked = true;
-  radBtnDefault105.checked = true;
-  radBtnDefault106.checked = true;
+radBtnDefault100.checked = true;
+radBtnDefault101.checked = true;
+radBtnDefault102.checked = true;
+radBtnDefault103.checked = true;
+radBtnDefault104.checked = true;
+radBtnDefault105.checked = true;
+radBtnDefault106.checked = true;
 
-  let anchors100 = document.getElementsByClassName("tmsButtonRight");
-  for (let i = 0; i < anchors100.length; i++) {
-    if (anchors100[i].textContent == "Következő oldal") {
-      anchors100[i].click();
-      break;
-    }
+let anchors100 = document.getElementsByClassName("tmsButtonRight");
+for (let i = 0; i < anchors100.length; i++) {
+  if (anchors100[i].textContent == "Következő oldal") {
+    anchors100[i].click();
+    break;
   }
-});
+}
 
-document.addEventListener("DOMContentLoaded", function() {
-  // Második oldal
+// Második oldal
+setTimeout(function() {
   let radBtnDefault200 = document.getElementById('q0,8');
   let radBtnDefault201 = document.getElementById('q1,1');
   let radBtnDefault202 = document.getElementById('q2,9');
@@ -43,34 +41,34 @@ document.addEventListener("DOMContentLoaded", function() {
       break;
     }
   }
-});
 
-document.addEventListener("DOMContentLoaded", function() {
   // Harmadik oldal
-  let radBtnDefault300 = document.getElementById('q0,8');
-  let radBtnDefault301 = document.getElementById('q1,2');
-  radBtnDefault300.checked = true;
-  radBtnDefault301.checked = true;
+  setTimeout(function() {
+    let radBtnDefault300 = document.getElementById('q0,8');
+    let radBtnDefault301 = document.getElementById('q1,2');
+    radBtnDefault300.checked = true;
+    radBtnDefault301.checked = true;
 
-  let anchors300 = document.getElementsByClassName("tmsButtonRight");
-  for (let i = 0; i < anchors300.length; i++) {
-    if (anchors300[i].textContent == "Következő oldal") {
-      anchors300[i].click();
-      break;
+    let anchors300 = document.getElementsByClassName("tmsButtonRight");
+    for (let i = 0; i < anchors300.length; i++) {
+      if (anchors300[i].textContent == "Következő oldal") {
+        anchors300[i].click();
+        break;
+      }
     }
-  }
-});
 
-document.addEventListener("DOMContentLoaded", function() {
-  // Negyedik oldal
-  document.getElementById('q0,0').value = "n.a.";
-  document.getElementById('q1,0').value = "n.a.";
+    // Negyedik oldal
+    setTimeout(function() {
+      document.getElementById('q0,0').value = "n.a.";
+      document.getElementById('q1,0').value = "n.a.";
 
-  let anchors400 = document.getElementsByClassName("tmsButtonRight");
-  for (let i = 0; i < anchors400.length; i++) {
-    if (anchors400[i].textContent == "Küldés") {
-      anchors400[i].click();
-      break;
-    }
-  }
-});
+      let anchors400 = document.getElementsByClassName("tmsButtonRight");
+      for (let i = 0; i < anchors400.length; i++) {
+        if (anchors400[i].textContent == "Küldés") {
+          anchors400[i].click();
+          break;
+        }
+      }
+    }, 4000); // 4 másodperc várakozás a negyedik oldalhoz
+
+  }, 4000); // 4 másodperc várakozás
