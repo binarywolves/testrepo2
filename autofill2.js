@@ -17,7 +17,7 @@ function executeCode(pageNumber) {
     radBtnDefault105.checked = true;
     radBtnDefault106.checked = true;
 
-    let anchors100 = document.getElementsByClassName("tmsButtonRight")
+    let anchors100 = document.getElementsByClassName("tmsButtonRight");
     for (let i = 0; i < anchors100.length; i++) {
       if (anchors100[i].textContent == "Következő oldal") {
         anchors100[i].click();
@@ -34,7 +34,7 @@ function executeCode(pageNumber) {
     radBtnDefault202.checked = true;
     radBtnDefault203.checked = true;
 
-    let anchors200 = document.getElementsByClassName("tmsButtonRight")
+    let anchors200 = document.getElementsByClassName("tmsButtonRight");
     for (let i = 0; i < anchors200.length; i++) {
       if (anchors200[i].textContent == "Következő oldal") {
         anchors200[i].click();
@@ -47,7 +47,7 @@ function executeCode(pageNumber) {
     radBtnDefault300.checked = true;
     radBtnDefault301.checked = true;
 
-    let anchors300 = document.getElementsByClassName("tmsButtonRight")
+    let anchors300 = document.getElementsByClassName("tmsButtonRight");
     for (let i = 0; i < anchors300.length; i++) {
       if (anchors300[i].textContent == "Következő oldal") {
         anchors300[i].click();
@@ -58,7 +58,7 @@ function executeCode(pageNumber) {
     document.getElementById('q0,0').value = "n.a.";
     document.getElementById('q1,0').value = "n.a.";
 
-    let anchors400 = document.getElementsByClassName("tmsButtonRight")
+    let anchors400 = document.getElementsByClassName("tmsButtonRight");
     for (let i = 0; i < anchors400.length; i++) {
       if (anchors400[i].textContent == "Küldés") {
         anchors400[i].click();
@@ -66,13 +66,6 @@ function executeCode(pageNumber) {
       }
     }
   }
-}
-"Küldés") {
-anchors400[i].click();
-break;
-}
-}
-}
 }
 
 // Megfigyelő létrehozása a "pageNumber" div változásainak figyelésére
@@ -91,3 +84,4 @@ observer.observe(document.documentElement, {
   childList: true,
   subtree: true,
 });
+
