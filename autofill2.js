@@ -66,22 +66,21 @@ function executeCode(pageNumber) {
       }
     }
   }
+  // Esemény kiváltása a következő ellenőrzéshez
+  setTimeout(checkPageNumber, 3000);
 }
 
-// Megfigyelő létrehozása a "pageNumber" div változásainak figyelésére
-const observer = new MutationObserver((mutationsList) => {
-  for (let mutation of mutationsList) {
-    if (mutation.type === 'childList' && mutation.target.classList.contains('pageNumber')) {
-      const pageNumber = mutation.target.textContent.trim();
-      executeCode(pageNumber);
-      break;
-    }
+// Függvény az oldal "pageNumber" értékének ellenőrzéséhez
+function checkPageNumber() {
+  const pageNumberElement = document.querySelector('.pageNumber');
+  if (pageNumberElement) {
+    const pageNumber = pageNumberElement.textContent.trim();
+    executeCode(pageNumber);
+  } else {
+    // Esemény kiváltása a következő ellenőrzéshez
+    setTimeout(checkPageNumber, 3000);
   }
-});
+}
 
-// Figyelés elindítása a gyökérelemre
-observer.observe(document.documentElement, {
-  childList: true,
-  subtree: true,
-});
-
+// Azonnali indítás
+checkPageNumber();
