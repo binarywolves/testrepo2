@@ -76,10 +76,10 @@ function checkPageNumber() {
   if (pageNumberElement) {
     const pageNumber = pageNumberElement.textContent.trim();
     executeCode(pageNumber);
-  } else {
-    // Esemény kiváltása a következő ellenőrzéshez
-    setTimeout(checkPageNumber, 3000);
   }
+
+  // Esemény kiváltása a következő ellenőrzéshez
+  setTimeout(checkPageNumber, 3000);
 }
 
 // Azonnali indítás
